@@ -1,14 +1,10 @@
-import { useState } from 'react'
-import Home from '../pages/Home'
+import { Outlet } from 'react-router-dom'
+import { CenterGrid } from '../components/GridItem'
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-   <>
-    <Home>
-
-    </Home>
-   </>
+	<CenterGrid>
+		<Outlet/>
+	</CenterGrid>
   )
 }
 
