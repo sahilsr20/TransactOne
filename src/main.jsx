@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Home from '../pages/Home'
-import Transactions from '../pages/Transactions'
+import Home from './pages/Home'
+import Transactions from './pages/Transactions'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import App from './App'
-import IndexPage from '../pages/IndexPage'
+import IndexPage from './pages/IndexPage'
 
 ReactDOM.render(
   <React.StrictMode>
