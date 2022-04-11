@@ -5,7 +5,7 @@ const NavButtons = (props)=>(
     <>
         <GridItem>
             <Button LinkComponent={RouterLink} to="/home" variant="outlined" size="large"> 
-            Home
+                Home
             </Button>
         </GridItem>
         <GridItem>
