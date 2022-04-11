@@ -25,11 +25,10 @@ describe("Transaction", function () {
     let currentTransactions = await transaction.getAllTransactions();
     let currentTransactionCount = await transaction.getTransactionCount();
     expect(currentTransactions.length==currentTransactionCount).to.equal(true);
-
     await transaction.connect(signers[0]).addToBlockchain(signers[1].address,100,"Test Word","KeyWord");
     currentTransactions = await transaction.getAllTransactions();
     currentTransactionCount = await transaction.getTransactionCount();
-
+    console.log(currentTransactions);
     expect(currentTransactions.length==currentTransactionCount).to.equal(true);
 
   });
