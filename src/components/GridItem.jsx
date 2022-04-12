@@ -1,7 +1,8 @@
 import { Grid } from "@mui/material";
 const GridItem =(props)=>(
     <Grid
-    item>
+    item
+    {...props}>
         {props.children}
     </Grid>
 );
@@ -9,9 +10,8 @@ const MiddlePageGrid=(props)=>(
     <Grid
     container
     direction="column"
-    justifyContent="space-around"
-    alignItems="center"
-    style={{minHeight:"100vh"}}>
+    {...props}
+    >
         {props.children}
     </Grid>
 )
@@ -28,11 +28,12 @@ const CenterRowGrid = (props)=>(
 );
 const CenterColGrid=(props) =>(
        <Grid
-       container
-       direction="column"
-       justifyContent="space-evenly"
-       alignItems="center"
-       style={{minHeight:"100%"}}>
+        container
+        spacing={2}
+        direction="column"
+        justifyContent="space-evenly"
+        alignItems="center"
+        >
            {props.children}
        </Grid>
     )

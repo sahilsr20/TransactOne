@@ -1,10 +1,20 @@
+import { Grid } from '@mui/material';
 import { Outlet } from 'react-router-dom'
-import { CenterGrid } from './components/GridItem'
+
+const AppGrid = (props)=>(
+  <Grid
+  container
+  direction="column"
+  justifyContent="space-around"
+  alignItems="center">
+    {props.children}
+  </Grid>
+);
 function App() {
   return (
-	<CenterGrid>
-		<Outlet/>
-	</CenterGrid>
+    <AppGrid>
+		  <Outlet/>
+    </AppGrid>
   )
 }
 

@@ -30,30 +30,42 @@ export async function isWalletUnlocked() {
 }
 
 
+export async function  addTransaction(address,amount,data,key){
+    const currentSigner = getCurrentSigner();
+    const transactionsAbi = new ethers.Contract(contractAddress, TransactionsAbi.abi,currentSigner);
+    const signedAbi = transactionsAbi.connect(currentSigner);
+    
+    signedAbi
+    .addToBlockchain(address,amount,data,key)
+    .catch((val)=>{
+        console.log(val);
+    });
+}
+
 class Transactions {
-    transactionsAbi;
     observable;
     constructor(){
-        this.transactionsAbi = new ethers.Contract(contractAddress, TransactionsAbi.abi);
         this.init();
     }
-    async addTransaction(address,amount,data,key){
-        const blockChainAddress = ethers.utils.getAddress(address);
-        const currentSigner = getCurrentSigner();
-        const signedAbi = this.transactionsAbi.connect(currentSigner);
-        signedAbi.addToBlockchain(blockChainAddress.address,amount,data,key);
-    }
+   
     async init(){
-        // Connect to the network
         this.observable =  new Observable(subscriber=>{
             setInterval(
                 ()=>{
-                    this.transactionsAbi.getAllTransactions()
+
+                    //getting signer and  initiaziling the transactionAbi
+                    const currentSigner = getCurrentSigner();
+                    const transactionsAbi = new ethers.Contract(contractAddress, TransactionsAbi.abi,currentSigner);
+
+                    //fetching all the transactions array 
+                    transactionsAbi
+                    .connect(currentSigner)
+                    .getAllTransactions()
                     .then(
                         (val)=>{
-                            console.log(val);
                         subscriber.next(val);
                         }).catch((val=>{
+                            console.log(val);
                         }))
                 },100);
         })

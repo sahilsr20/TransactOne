@@ -1,14 +1,14 @@
 import { Button, Typography } from "@mui/material"
-import { CenterGrid, CenterRowGrid, GridItem, MiddlePageGrid } from "../components/GridItem"
+import {  CenterRowGrid, GridItem} from "../components/GridItem"
 import { Link as RouterLink } from "react-router-dom";
 const NavButtons = (props)=>(
     <>
-        <GridItem>
+        <GridItem xs={6}>
             <Button LinkComponent={RouterLink} to="/home" variant="outlined" size="large"> 
                 Home
             </Button>
         </GridItem>
-        <GridItem>
+        <GridItem  xs={6}>
             <Button LinkComponent={RouterLink} to="/transactions" variant="contained" size="large">
                 Transactions
             </Button>
@@ -17,15 +17,21 @@ const NavButtons = (props)=>(
 );
 
 const IndexPage = ()=>(
-    <MiddlePageGrid>
-        <Typography variant="h1">
-            Welcome to Transact One
-        </Typography>
-        <CenterRowGrid>
-            <NavButtons/>
-        </CenterRowGrid> 
-    </MiddlePageGrid>
-           
+    <>
+    <GridItem>
+        
+    </GridItem>
+        <GridItem xs={12}>
+            <Typography variant="h1">
+                Welcome to Transact One
+            </Typography>
+        </GridItem>
+        <GridItem xs={12}>
+            <CenterRowGrid>
+                <NavButtons/>
+            </CenterRowGrid> 
+        </GridItem>
+    </>         
 )
 
 export default IndexPage
