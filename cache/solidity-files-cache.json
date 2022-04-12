@@ -72,6 +72,43 @@
       "artifacts": [
         "console"
       ]
+    },
+    "D:\\TransactOne\\contracts\\Transaction.sol": {
+      "lastModificationDate": 1649743010866,
+      "contentHash": "ca314f8ae9a3ed9587bef4ef554fc0db",
+      "sourceName": "contracts/Transaction.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Transactions"
+      ]
     }
   }
 }
