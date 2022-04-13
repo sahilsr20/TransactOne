@@ -1,20 +1,11 @@
-import { Grid } from '@mui/material';
-import { Outlet } from 'react-router-dom'
+import { useState } from 'react'
 
-const AppGrid = (props)=>(
-  <Grid
-  container
-  direction="column"
-  justifyContent="space-around"
-  alignItems="center">
-    {props.children}
-  </Grid>
-);
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
-    <AppGrid>
-		  <Outlet/>
-    </AppGrid>
+   <>
+   </>
   )
 }
 
