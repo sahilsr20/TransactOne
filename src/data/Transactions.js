@@ -1,8 +1,7 @@
 import * as TransactionsAbi from "../../artifacts/contracts/Transaction.sol/Transactions.json"
 import { ethers } from "ethers";
-import { Observable, Subscriber} from "rxjs";
-
-
+import { Observable,BehaviorSubject} from "rxjs";
+import { distinctUntilChanged ,pipe} from "rxjs";
 const contractAddress ="0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 
@@ -29,58 +28,27 @@ export async function isWalletUnlocked() {
     return unlocked;
 }
 
+export async function getAllTransactions(){
+    const currentSigner = getCurrentSigner();
+    const transactionsAbi = new ethers.Contract(contractAddress, TransactionsAbi.abi,currentSigner);
+    const signedAbi = transactionsAbi.connect(currentSigner);
+
+    const transactionData = await signedAbi.getAllTransactions();
+
+    observable.next(transactionData);
+}
 
 export async function  addTransaction(address,amount,data,key){
     const currentSigner = getCurrentSigner();
     const transactionsAbi = new ethers.Contract(contractAddress, TransactionsAbi.abi,currentSigner);
     const signedAbi = transactionsAbi.connect(currentSigner);
-    
-    signedAbi
-    .addToBlockchain(address,amount,data,key)
-    .catch((val)=>{
-        console.log(val);
 
-    });
+    await signedAbi.addToBlockchain(address,amount,data,key);
+
+    const transactionData = await signedAbi.getAllTransactions();
+
+    window.transactionData = transactionData;
+    observable.next(transactionData);
 }
 
-let data=[];
-export let observable = new Observable(subscriber=>{
-
-   let id = setInterval(()=>{
-
-        const currentSigner = getCurrentSigner();
-        const transactionsAbi = new ethers.Contract(contractAddress, TransactionsAbi.abi,currentSigner);
-        const signedAbi = transactionsAbi.connect(currentSigner);
-
-        signedAbi
-        .getAllTransactions()
-        .then((val=>{
-            if(data!=val)
-            {
-                data = val;
-                subscriber.next(data);
-            }
-        }))
-        .catch((error)=>{
-            console.log(error);
-        })
-    },100);
-
-    return function unsubscribe(){
-        clearInterval(id);
-    }
-});
-
-export const transactionsStore = {
-    state:[],
-    subscribe : setstate =>{
-        observable.subscribe({
-            next : val=>{
-                if(val!=transactionsStore.state){
-                    setstate(val);
-                    transactionsStore.state=val;
-                }
-            }
-        })
-    }
-}
+export let observable = new BehaviorSubject([]);

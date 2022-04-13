@@ -25,7 +25,7 @@ const BasicCard =(props)=>  (
         </CardActions>
     </Card>
 );
-const DataContainer = (props)=>(
+export const DataContainer = (props)=>(
     <CenterGrid>
     <GridItem>
         <Typography variant="h6">
@@ -34,7 +34,7 @@ const DataContainer = (props)=>(
     </GridItem>
     <GridItem>
         <Typography variant="h6">
-             Reciever {props.reciever}
+             Reciever {props.receiver}
         </Typography>
     </GridItem>
 </CenterGrid>
