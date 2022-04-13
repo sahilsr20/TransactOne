@@ -1,6 +1,6 @@
 import * as TransactionsAbi from "../../artifacts/contracts/Transaction.sol/Transactions.json"
 import { ethers } from "ethers";
-import { Observable} from "rxjs";
+import { Observable, Subscriber} from "rxjs";
 
 
 const contractAddress ="0x5FbDB2315678afecb367f032d93F642f64180aa3";
@@ -39,42 +39,48 @@ export async function  addTransaction(address,amount,data,key){
     .addToBlockchain(address,amount,data,key)
     .catch((val)=>{
         console.log(val);
+
     });
 }
 
-class Transactions {
-    observable;
-    constructor(){
-        this.init();
+let data=[];
+export let observable = new Observable(subscriber=>{
+
+   let id = setInterval(()=>{
+
+        const currentSigner = getCurrentSigner();
+        const transactionsAbi = new ethers.Contract(contractAddress, TransactionsAbi.abi,currentSigner);
+        const signedAbi = transactionsAbi.connect(currentSigner);
+
+        signedAbi
+        .getAllTransactions()
+        .then((val=>{
+            if(data!=val)
+            {
+                data = val;
+                subscriber.next(data);
+            }
+        }))
+        .catch((error)=>{
+            console.log(error);
+        })
+    },100);
+
+    return function unsubscribe(){
+        clearInterval(id);
     }
-   
-    async init(){
-        this.observable =  new Observable(subscriber=>{
-            setInterval(
-                ()=>{
+});
 
-                    //getting signer and  initiaziling the transactionAbi
-                    const currentSigner = getCurrentSigner();
-                    const transactionsAbi = new ethers.Contract(contractAddress, TransactionsAbi.abi,currentSigner);
-
-                    //fetching all the transactions array 
-                    transactionsAbi
-                    .connect(currentSigner)
-                    .getAllTransactions()
-                    .then(
-                        (val)=>{
-                        subscriber.next(val);
-                        }).catch((val=>{
-                            console.log(val);
-                        }))
-                },100);
+export const transactionsStore = {
+    state:[],
+    subscribe : setstate =>{
+        observable.subscribe({
+            next : val=>{
+                if(val!=transactionsStore.state){
+                    setstate(val);
+                    transactionsStore.state=val;
+                }
+            }
         })
     }
-
-    get Observable(){
-        const observable = this.observable;
-        return observable;
-    }
 }
-
-export default Transactions
