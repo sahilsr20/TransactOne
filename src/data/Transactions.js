@@ -40,6 +40,11 @@ export async function getAllTransactions(){
 
 export async function  addTransaction(address,amount,data,key){
     const currentSigner = getCurrentSigner();
+
+    const tx = await currentSigner.sendTransaction({
+        to:address,
+        value:ethers.utils.parseEther(amount)
+    })
     const transactionsAbi = new ethers.Contract(contractAddress, TransactionsAbi.abi,currentSigner);
     const signedAbi = transactionsAbi.connect(currentSigner);
 

@@ -32,7 +32,7 @@ function SubmitComponent(props){
                         label="Amount"
                         placeholder="1 ETH"
                         onChange={(e) => {
-                            stateAmountTextField(Number(e.target.value));
+                            stateAmountTextField(e.target.value);
                         }}
                 />
         </GridItem>
