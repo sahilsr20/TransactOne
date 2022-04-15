@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@mui/material";
+import { Paper, Typography ,Card,CardContent,CardActions,Button} from "@mui/material";
 import { GridItem ,CenterGrid} from "./GridItem";
 
 
@@ -6,18 +6,16 @@ const BasicCard =(props)=>  (
     <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Transaction
+            Sender
           </Typography>
           <Typography variant="h5" component="div">
-            Sender is {props.sender}
+            {props.sender}
           </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             Reciever
           </Typography>
-          <Typography variant="body2">
-            {props.reciever}
-            <br />
-            {'"a benevolent smile"'}
+          <Typography variant="h5" component="div">
+            {props.receiver}
           </Typography>
         </CardContent>
         <CardActions>

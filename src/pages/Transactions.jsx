@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import NavBar from "../components/Navbar";
 import { useState,useLayoutEffect } from "react";
 import { observable,getAllTransactions} from "../data/Transactions";
-import { DataContainer } from "../components/DataComponent";
+import BasicCard, { DataContainer } from "../components/DataComponent";
 function Transactions() {
 
     const [currentTransactions,transactionsState] = useState([]);
@@ -23,7 +23,7 @@ function Transactions() {
           </Typography>
           {
             currentTransactions.map((val,index)=>(
-              <DataContainer key={index} sender={val.sender} receiver={val.receiver}/>
+              <BasicCard key={index} sender={val.sender} receiver={val.receiver}/>
             ))
           }
     </>
