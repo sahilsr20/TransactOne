@@ -18,12 +18,9 @@ const NavButtons = (props)=>(
 
 const IndexPage = ()=>(
     <>
-    <GridItem>
-        
-    </GridItem>
         <GridItem xs={12}>
             <Typography variant="h1">
-                Welcome to Transact One
+                TransactOne
             </Typography>
         </GridItem>
         <GridItem xs={12}>
